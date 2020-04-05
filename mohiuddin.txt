@@ -11,5 +11,3 @@ About me !!
 
 <p>I got started with technology at the age of 16 when I convinced my parents to let me buy a computer with my pocket money. I haven't looked back since.</p>
 I am open to new ideas and opportunities. If you would like to get in touch with me, whether it be for tech support, a business venture, or to just say hi<!-- slightdelayhere-->, feel free to send me an email. My email address is: <a href="mailto:more@mohiuddin.dev">more@mohiuddin.dev</a>
-
-If you are looking for the older site, which has been migrated to <a href="http://www.journey2hadoop.com/">www.Journey2Hadoop.com</a></p>
