@@ -11,8 +11,4 @@ About me !!
 
 <p>My passion for technology ignited at the age of 16, when I managed to convince my parents to let me buy my first computer using my savings. That moment marked the beginning of an exciting journey in tech, one that continues to inspire me every day.</p>
 
-<<<<<<< HEAD
 <p>I’m always open to exploring new ideas and opportunities. Whether you need tech support, are seeking a collaborator for a business venture, or simply want to connect, feel free to reach out. You can email me at more@mohiuddin.dev—I’d love to hear from you!</p>
-=======
-<p>I’m always open to exploring new ideas and opportunities. Whether you need tech support, are seeking a collaborator for a business venture, or simply want to connect, feel free to reach out. You can email me at more@mohiuddin.dev—I’d love to hear from you!</p>
->>>>>>> 2b38eaf (updated color)
