@@ -5,13 +5,17 @@ Hi, I'm mohiuddin.<!-- laglaglaglaglaglaglaglaglag -->
 
 About me !! <!-- laglaglaglaglaglaglaglaglag -->
 
-<p>At daytime, I work as a Big Data Architect. With over 15 years of experience in Information Technology; I am very fortunate to have worked with several fortune 100 companies. </p>
+  <p class="intro">I'm <strong>Mohiuddin</strong>, a <strong>Big Data Architect</strong> with over <strong>15 years</strong> of experience transforming data into scalable solutions for Fortune 100 companies. My work sits at the intersection of <strong>data engineering, cloud computing, and analytics</strong>, where I design systems that turn complexity into clarity.</p>
 
-<p>My academic journey began at the prestigious Karolinska Institute in Stockholm, Sweden, where I earned a degree in Public Health Information Systems with a focus on Quantitative Data Analysis. I completed a Master’s degree in Computer Science with a specialization in Cloud Computing Architecture at the University of Maryland </p>
+  <p>My journey began at <strong>16</strong> when I bought my first computer - sparking a lifelong passion for technology. That curiosity led me to study <strong>Public Health Information Systems</strong> at Sweden's <strong>Karolinska Institute</strong> (with a focus on quantitative analysis) and later earn a <strong>Master's in Computer Science</strong>, specializing in <strong>Cloud Computing Architecture</strong>, from the <strong>University of Maryland</strong>.</p>
 
-<p>My passion for technology ignited at the age of 16, when I managed to convince my parents to let me buy my first computer using my savings. That moment marked the beginning of an exciting journey in tech, one that continues to inspire me every day.</p>
+  <p>When I'm not architecting data platforms, I'm exploring new tech, mentoring, or collaborating on innovative projects. <span class="highlight">Let's build something meaningful together.</span></p>
 
-<p>I’m always open to exploring new ideas and opportunities. Whether you need tech support, are seeking a collaborator for a business venture, or simply want to connect, feel free to reach out. You can email me at more@mohiuddin.dev—I’d love to hear from you!</p>
+  <div class="contact-cta">
+    <p>📫 Reach me at <a href="mailto:more@mohiuddin.dev">more@mohiuddin.dev</a></p>
+  </div>
+</div>
+
 
 
 
