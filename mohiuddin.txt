@@ -14,9 +14,8 @@ About me !! <!-- laglaglaglaglaglaglaglaglag -->
   <div class="contact-cta">
     <p>📫 Reach me at <a href="mailto:more@mohiuddin.dev">more@mohiuddin.dev</a></p>
   </div>
-</div>
-
-
-
 
 <p>- mohiuddin </p>
+
+</div>
+
