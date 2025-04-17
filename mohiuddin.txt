@@ -12,7 +12,7 @@ About me !! <!-- laglaglaglaglaglaglaglaglag -->
   <p>When I'm not architecting data platforms, I'm exploring new tech, mentoring, or collaborating on innovative projects. <span class="highlight">Let's build something meaningful together.</span></p>
 
   <div class="contact-cta">
-    <p>📫 Reach me at <a href="mailto:hello@mohiuddin.dev">more@mohiuddin.dev</a></p>
+    <p>📫 Reach me at <a href="mailto:hello@mohiuddin.dev">hello@mohiuddin.dev</a></p>
   </div>
 
 <p>- mohiuddin </p>
