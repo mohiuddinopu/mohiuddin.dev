@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Real Estate Profit Calculator</title>
-  <!-- Include Chart.js (CDN) -->
+  <!-- Include Chart.js from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* Use Ginto fonts; if not installed, fallback to sans-serif */
@@ -103,7 +103,7 @@
       padding: 20px;
       margin-bottom: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .section-title {
       font-size: 20px;
@@ -184,6 +184,22 @@
     .calculate-btn:hover {
       background-color: #218838;
     }
+    /* Additional "Result" Button at Bottom */
+    #resultButton {
+      display: block;
+      width: 150px;
+      margin: 40px auto;
+      padding: 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #resultButton:hover {
+      background-color: #0056b3;
+    }
     /* Modal Popup for Export */
     .modal {
       display: none; /* Hidden on load */
@@ -194,7 +210,7 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
-      /* Center modal content using flex */
+      /* Center modal content */
       align-items: center;
       justify-content: center;
     }
@@ -426,6 +442,8 @@
           <button type="button" class="calculate-btn" id="exportAsPrdBtn">Export as PDF</button>
         </div>
       </form>
+      <!-- "Result" Button to scroll to top -->
+      <button id="resultButton">Result</button>
     </div>
   </div>
   <!-- Modal Popup for Export -->
@@ -450,27 +468,26 @@
       if (!val) return 0;
       return parseFloat(val.replace(/[^0-9.-]+/g, "")) || 0;
     }
-    // Calculate loan payment (for mortgage/HELOC)
+    // Calculate the loan payment (for mortgage/HELOC)
     function calculateLoanPayment(principal, monthlyRate, totalPayments) {
       return principal * monthlyRate / (1 - Math.pow(1 + monthlyRate, -totalPayments));
     }
-    
     // Dynamically create Unit Rent inputs based on "Number of Units"
     function updateUnitRents() {
-      const numUnits = parseInt(document.getElementById("units").value) || 0;
-      const container = document.getElementById("unitRentContainer");
+      var numUnits = parseInt(document.getElementById("units").value) || 0;
+      var container = document.getElementById("unitRentContainer");
       container.innerHTML = ""; // Clear previous inputs
-      for (let i = 1; i <= numUnits; i++) {
-        const div = document.createElement("div");
+      for (var i = 1; i <= numUnits; i++) {
+        var div = document.createElement("div");
         div.style.flex = "1 1 45%";
-        const label = document.createElement("label");
+        var label = document.createElement("label");
         label.textContent = "Unit " + i + " Rent:";
-        const wrapper = document.createElement("div");
+        var wrapper = document.createElement("div");
         wrapper.className = "input-wrapper currency-wrap";
-        const prefix = document.createElement("span");
+        var prefix = document.createElement("span");
         prefix.className = "prefix";
         prefix.textContent = "$";
-        const input = document.createElement("input");
+        var input = document.createElement("input");
         input.type = "text";
         input.placeholder = "1200";
         input.className = "unit-rent";
@@ -485,29 +502,29 @@
       calculateProfit();
     }
     
-    // Attach events for dynamic unit rent updates
-    const unitsField = document.getElementById("units");
+    // Attach events for dynamic unit rent inputs
+    var unitsField = document.getElementById("units");
     unitsField.addEventListener("input", updateUnitRents);
     unitsField.addEventListener("change", updateUnitRents);
-    document.querySelectorAll("input").forEach(input => {
+    document.querySelectorAll("input").forEach(function(input) {
       input.addEventListener("input", calculateProfit);
     });
     
     // Global variable for the Chart.js chart
-    let expenseChart = null;
+    var expenseChart = null;
     
     // Function to update the expense breakdown pie chart.
-    // Expense breakdown now includes: Mortgage Payment, HELOC Payment, Property Tax (Monthly), Utility, Insurance (Monthly)
+    // Expense breakdown includes: Mortgage Payment, HELOC Payment, Property Tax (Monthly), Utility, Insurance (Monthly)
     function updateChart(mortgageCost, helocCost, taxCost, utilityCost, insuranceCost, totalExpenses) {
-      let data = [mortgageCost, helocCost, taxCost, utilityCost, insuranceCost];
-      let labels = ["Mortgage Payment", "HELOC Payment", "Property Tax (Monthly)", "Utility", "Insurance (Monthly)"];
-      let backgroundColors = ["#007bff", "#6f42c1", "#ffc107", "#17a2b8", "#28a745"];
+      var data = [mortgageCost, helocCost, taxCost, utilityCost, insuranceCost];
+      var labels = ["Mortgage Payment", "HELOC Payment", "Property Tax (Monthly)", "Utility", "Insurance (Monthly)"];
+      var backgroundColors = ["#007bff", "#6f42c1", "#ffc107", "#17a2b8", "#28a745"];
       
       if(expenseChart) {
         expenseChart.data.datasets[0].data = data;
         expenseChart.update();
       } else {
-        const ctx = document.getElementById("expenseChart").getContext("2d");
+        var ctx = document.getElementById("expenseChart").getContext("2d");
         expenseChart = new Chart(ctx, {
           type: 'pie',
           data: {
@@ -535,56 +552,54 @@
     // Calculate and update live results in the sidebar and update the pie chart.
     function calculateProfit() {
       // Income: sum of all unit rents, parking rent, and pet rent
-      let totalUnitRent = 0;
-      document.querySelectorAll(".unit-rent").forEach(input => {
+      var totalUnitRent = 0;
+      document.querySelectorAll(".unit-rent").forEach(function(input) {
         totalUnitRent += parseCurrency(input.value);
       });
-      const parkingRent = parseCurrency(document.getElementById("parkingRent").value);
-      const petRent = parseCurrency(document.getElementById("petRent").value);
-      const totalIncome = totalUnitRent + parkingRent + petRent;
+      var parkingRent = parseCurrency(document.getElementById("parkingRent").value);
+      var petRent = parseCurrency(document.getElementById("petRent").value);
+      var totalIncome = totalUnitRent + parkingRent + petRent;
       
       // Mortgage calculations (monthly mortgage payment)
-      const propertyPrice = parseCurrency(document.getElementById("propertyPrice").value);
-      const downPaymentPerc = (parseFloat(document.getElementById("downPayment").value) || 0) / 100;
-      const mortgageYears = parseFloat(document.getElementById("mortgageYears").value) || 0;
-      const mortgageRate = (parsePercentage(document.getElementById("mortgageRate").value) || 0) / 100 / 12;
-      let mortgagePayment = 0;
+      var propertyPrice = parseCurrency(document.getElementById("propertyPrice").value);
+      var downPaymentPerc = (parseFloat(document.getElementById("downPayment").value) || 0) / 100;
+      var mortgageYears = parseFloat(document.getElementById("mortgageYears").value) || 0;
+      var mortgageRate = (parsePercentage(document.getElementById("mortgageRate").value) || 0) / 100 / 12;
+      var mortgagePayment = 0;
       if (mortgageYears > 0 && mortgageRate > 0 && propertyPrice > 0) {
-        const loanAmount = propertyPrice * (1 - downPaymentPerc);
+        var loanAmount = propertyPrice * (1 - downPaymentPerc);
         mortgagePayment = calculateLoanPayment(loanAmount, mortgageRate, mortgageYears * 12);
       }
       
       // HELOC calculations (monthly payment)
-      const heloc = parseCurrency(document.getElementById("heloc").value);
-      const helocYears = parseFloat(document.getElementById("helocYears").value) || 0;
-      const helocRate = (parsePercentage(document.getElementById("helocRate").value) || 0) / 100 / 12;
-      let helocPayment = 0;
+      var heloc = parseCurrency(document.getElementById("heloc").value);
+      var helocYears = parseFloat(document.getElementById("helocYears").value) || 0;
+      var helocRate = (parsePercentage(document.getElementById("helocRate").value) || 0) / 100 / 12;
+      var helocPayment = 0;
       if (helocYears > 0 && helocRate > 0 && heloc > 0) {
         helocPayment = calculateLoanPayment(heloc, helocRate, helocYears * 12);
       }
       
-      // Expense Breakdown: expenses include monthly mortgage payment, heloc payment,
-      // property tax (yearly divided by 12), utility, and insurance (yearly divided by 12)
-      const taxYearly = parseCurrency(document.getElementById("tax").value);
-      const utility = parseCurrency(document.getElementById("utility").value);
-      const insuranceYearly = parseCurrency(document.getElementById("insurance").value);
+      // Expense Breakdown: expenses = monthly mortgage payment + heloc payment + (tax converted to monthly) + utility + (insurance converted to monthly)
+      var taxYearly = parseCurrency(document.getElementById("tax").value);
+      var utility = parseCurrency(document.getElementById("utility").value);
+      var insuranceYearly = parseCurrency(document.getElementById("insurance").value);
+      var taxCost = taxYearly / 12;
+      var insuranceCost = insuranceYearly / 12;
       
-      const taxCost = taxYearly / 12;
-      const insuranceCost = insuranceYearly / 12;
+      var totalExpenses = mortgagePayment + helocPayment + taxCost + utility + insuranceCost;
+      var profit = totalIncome - totalExpenses;
       
-      const totalExpenses = mortgagePayment + helocPayment + taxCost + utility + insuranceCost;
-      const profit = totalIncome - totalExpenses;
-      
-      const roundedIncome = Math.round(totalIncome);
-      const roundedExpenses = Math.round(totalExpenses);
-      const roundedProfit = Math.round(profit);
+      var roundedIncome = Math.round(totalIncome);
+      var roundedExpenses = Math.round(totalExpenses);
+      var roundedProfit = Math.round(profit);
       
       // Update sidebar results
       document.getElementById("sidebarIncome").innerText = "$" + roundedIncome;
       document.getElementById("sidebarExpenses").innerText = "$" + roundedExpenses;
       document.getElementById("sidebarProfit").innerText = "$" + roundedProfit;
       
-      const sidebarResult = document.getElementById("sidebarResult");
+      var sidebarResult = document.getElementById("sidebarResult");
       sidebarResult.classList.remove("profit", "loss", "break-even");
       if (roundedProfit > 0) {
         sidebarResult.classList.add("profit");
@@ -599,27 +614,27 @@
     }
     
     // On form reset, update dynamic fields and results
-    document.getElementById("calcForm").addEventListener("reset", function(){
-      setTimeout(() => {
+    document.getElementById("calcForm").addEventListener("reset", function() {
+      setTimeout(function() {
         updateUnitRents();
         calculateProfit();
       }, 0);
     });
     
     // Export Modal functionality
-    const exportModal = document.getElementById("exportModal");
-    document.getElementById("exportAsPrdBtn").addEventListener("click", function(){
+    var exportModal = document.getElementById("exportModal");
+    document.getElementById("exportAsPrdBtn").addEventListener("click", function() {
       exportModal.style.display = "flex";
     });
-    document.getElementById("cancelBtn").addEventListener("click", function(){
+    document.getElementById("cancelBtn").addEventListener("click", function() {
       exportModal.style.display = "none";
     });
-    document.getElementById("exportBtn").addEventListener("click", function(){
+    document.getElementById("exportBtn").addEventListener("click", function() {
       // Get property name/address for export from modal
-      const exportName = document.getElementById("exportPropertyName").value;
+      var exportName = document.getElementById("exportPropertyName").value;
       document.getElementById("printHeader").innerText = exportName ? exportName : "";
       // Build the print summary using live result values
-      const summaryHTML = `
+      var summaryHTML = `
         <div style="text-align:center; font-size:18px; margin-top:20px;">
           <p>Monthly Income: ${document.getElementById("sidebarIncome").innerText}</p>
           <p>Monthly Expenses: ${document.getElementById("sidebarExpenses").innerText}</p>
@@ -629,6 +644,11 @@
       document.getElementById("printSummary").innerHTML = summaryHTML;
       exportModal.style.display = "none";
       window.print();
+    });
+    
+    // "Result" Button functionality: scroll to top when clicked
+    document.getElementById("resultButton").addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
     // Initial calculation on page load
