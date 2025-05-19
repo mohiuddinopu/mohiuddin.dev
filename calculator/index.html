@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Estate Profit Calculator</title>
+  <style>
+    /* Use Ginto fonts; if not installed, fallback to sans-serif */
+    body {
+      margin: 0;
+      font-family: "Ginto", "Ginto Nort Regular", sans-serif;
+      background: #f0f4f8;
+    }
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+    /* Sidebar Styling */
+    .sidebar {
+      width: 25%;
+      background-color: #2b3a4a;
+      color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .sidebar h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* Sidebar Live Results Styling */
+    .sidebar-result {
+      margin-top: 30px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+      background: #e0e0e0;
+      border: 2px solid #6c757d;
+      color: #6c757d;
+      position: sticky;
+      top: 20px;
+    }
+    .sidebar-result h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .sidebar-result p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .sidebar-result span {
+      font-weight: bold;
+    }
+    /* Sidebar Color Variants */
+    .sidebar-result.profit {
+      background: #d4f4dd;
+      border: 2px solid #28a745;
+      color: #28a745;
+    }
+    .sidebar-result.loss {
+      background: #f4d4d4;
+      border: 2px solid #dc3545;
+      color: #dc3545;
+    }
+    .sidebar-result.break-even {
+      background: #e0e0e0;
+      border: 2px solid #6c757d;
+      color: #6c757d;
+    }
+    /* Content Styling */
+    .content {
+      width: 75%;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+    .content h2 {
+      color: #2b3a4a;
+      margin-bottom: 20px;
+    }
+    /* Form Sections */
+    .form-section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #2b3a4a;
+      border-bottom: 2px solid #2b3a4a;
+      padding-bottom: 5px;
+      text-align: left;
+    }
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .form-group > div {
+      flex: 1 1 45%;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+      text-align: left;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    /* Input Wrappers for Currency & Percentage */
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .currency-wrap .prefix {
+      position: absolute;
+      left: 10px;
+      color: #555;
+      pointer-events: none;
+    }
+    .currency-wrap input {
+      padding-left: 25px;
+    }
+    .percentage-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .percentage-wrap .suffix {
+      position: absolute;
+      right: 10px;
+      color: #555;
+      pointer-events: none;
+    }
+    .percentage-wrap input {
+      padding-right: 25px;
+    }
+    /* Button Styling: Reset Button */
+    .calculate-btn {
+      background-color: #28a745;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 15px;
+    }
+    .calculate-btn:hover {
+      background-color: #218838;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar, .content {
+        width: 100%;
+      }
+      .form-group > div {
+        flex: 1 1 100%;
+      }
+      /* For mobile, make the sidebar-result static */
+      .sidebar-result {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar with Header and Live Results -->
+    <div class="sidebar">
+      <h1>Calculator</h1>
+      <div id="sidebarResult" class="sidebar-result break-even">
+        <h2>Live Results</h2>
+        <p>Monthly Income: <span id="sidebarIncome">$0</span></p>
+        <p>Monthly Expenses: <span id="sidebarExpenses">$0</span></p>
+        <p>Profit/Loss: <span id="sidebarProfit">$0</span></p>
+      </div>
+    </div>
+    <!-- Content Area -->
+    <div class="content">
+      <h2>Real Estate Profit Calculator</h2>
+      <form id="calcForm">
+        <!-- Property Details Section -->
+        <div class="form-section">
+          <div class="section-title">Property Details</div>
+          <div class="form-group">
+            <div>
+              <label for="propertyPrice">Property Price:</label>
+              <div class="input-wrapper currency-wrap">
+                <span class="prefix">$</span>
+                <input type="text" id="propertyPrice" placeholder="250000">
+              </div>
+            </div>
+            <div>
+              <label for="units">Number of Units:</label>
+              <input type="number" id="units" placeholder="3">
+            </div>
+          </div>
+        </div>
+        <!-- Income Section -->
+        <div class="form-section">
+          <div class="section-title">Income</div>
+          <!-- Dynamic Unit Rent Inputs Container -->
+          <div id="unitRentContainer" class="form-group"></div>
+          <div class="form-group">
+            <div>
+              <label for="parkingRent">Parking Space Rental:</label>
+              <div class="input-wrapper currency-wrap">
+                <span class="prefix">$</span>
+                <input type="text" id="parkingRent" placeholder="100">
+              </div>
+            </div>
+            <div>
+              <label for="petRent">Pet Rent:</label>
+              <div class="input-wrapper currency-wrap">
+                <span class="prefix">$</span>
+                <input type="text" id="petRent" placeholder="50">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Mortgage Section -->
+        <div class="form-section">
+          <div class="section-title">Mortgage</div>
+          <div class="form-group">
+            <div>
+              <label for="downPayment">Down Payment (%):</label>
+              <input type="number" id="downPayment" placeholder="20">
+            </div>
+            <div>
+              <label for="mortgageYears">Mortgage Years:</label>
+              <input type="number" id="mortgageYears" placeholder="30">
+            </div>
+            <div>
+              <label for="mortgageRate">Mortgage Interest Rate:</label>
+              <div class="input-wrapper percentage-wrap">
+                <input type="text" id="mortgageRate" placeholder="4.5">
+                <span class="suffix">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- HELOC Section -->
+        <div class="form-section">
+          <div class="section-title">HELOC</div>
+          <div class="form-group">
+            <div>
+              <label for="heloc">HELOC Amount:</label>
+              <div class="input-wrapper currency-wrap">
+                <span class="prefix">$</span>
+                <input type="text" id="heloc" placeholder="50000">
+              </div>
+            </div>
+            <div>
+              <label for="helocYears">HELOC Years:</label>
+              <input type="number" id="helocYears" placeholder="10">
+            </div>
+            <div>
+              <label for="helocRate">HELOC Interest Rate:</label>
+              <div class="input-wrapper percentage-wrap">
+                <input type="text" id="helocRate" placeholder="5">
+                <span class="suffix">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Expenses Section -->
+        <div class="form-section">
+          <div class="section-title">Expenses</div>
+          <div class="form-group">
+            <div>
+              <label for="tax">Property Tax (Yearly):</label>
+              <div class="input-wrapper currency-wrap">
+                <span class="prefix">$</span>
+                <input type="text" id="tax" placeholder="3000">
+              </div>
+            </div>
+            <div>
+              <label for="utility">Utility Cost (Monthly):</label>
+              <div class="input-wrapper currency-wrap">
+                <span class="prefix">$</span>
+                <input type="text" id="utility" placeholder="200">
+              </div>
+            </div>
+            <div>
+              <label for="insurance">Yearly Insurance Cost:</label>
+              <div class="input-wrapper currency-wrap">
+                <span class="prefix">$</span>
+                <input type="text" id="insurance" placeholder="1200">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Reset Button -->
+        <button type="reset" class="calculate-btn">Reset</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Helper functions for parsing currency and percentage values (removing non-numeric characters)
+    function parseCurrency(val) {
+      if (!val) return 0;
+      return parseFloat(val.replace(/[^0-9.-]+/g, "")) || 0;
+    }
+    function parsePercentage(val) {
+      if (!val) return 0;
+      return parseFloat(val.replace(/[^0-9.-]+/g, "")) || 0;
+    }
+    // Calculate loan payment (for mortgage/HELOC)
+    function calculateLoanPayment(principal, monthlyRate, totalPayments) {
+      return principal * monthlyRate / (1 - Math.pow(1 + monthlyRate, -totalPayments));
+    }
+    
+    // Dynamically create Unit Rent inputs based on "Number of Units"
+    function updateUnitRents() {
+      const numUnits = parseInt(document.getElementById("units").value) || 0;
+      const container = document.getElementById("unitRentContainer");
+      container.innerHTML = ""; // Clear previous inputs
+      for (let i = 1; i <= numUnits; i++) {
+        const div = document.createElement("div");
+        div.style.flex = "1 1 45%";
+        const label = document.createElement("label");
+        label.textContent = "Unit " + i + " Rent:";
+        const wrapper = document.createElement("div");
+        wrapper.className = "input-wrapper currency-wrap";
+        const prefix = document.createElement("span");
+        prefix.className = "prefix";
+        prefix.textContent = "$";
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "1200";
+        input.className = "unit-rent";
+        input.id = "unitRent" + i;
+        input.addEventListener("input", calculateProfit);
+        wrapper.appendChild(prefix);
+        wrapper.appendChild(input);
+        div.appendChild(label);
+        div.appendChild(wrapper);
+        container.appendChild(div);
+      }
+      calculateProfit();
+    }
+    
+    // Attach both "input" and "change" events to the units field so dynamic inputs update reliably.
+    const unitsField = document.getElementById("units");
+    unitsField.addEventListener("input", updateUnitRents);
+    unitsField.addEventListener("change", updateUnitRents);
+    
+    // Recalculate when any input changes.
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", calculateProfit);
+    });
+    
+    // Calculate and update live results in the sidebar
+    function calculateProfit() {
+      // Compute income: sum of unit rents, parking rent, and pet rent
+      let totalUnitRent = 0;
+      document.querySelectorAll(".unit-rent").forEach(input => {
+        totalUnitRent += parseCurrency(input.value);
+      });
+      const parkingRent = parseCurrency(document.getElementById("parkingRent").value);
+      const petRent = parseCurrency(document.getElementById("petRent").value);
+      const totalIncome = totalUnitRent + parkingRent + petRent;
+      
+      // Mortgage calculations
+      const propertyPrice = parseCurrency(document.getElementById("propertyPrice").value);
+      const downPaymentPerc = (parseFloat(document.getElementById("downPayment").value) || 0) / 100;
+      const mortgageYears = parseFloat(document.getElementById("mortgageYears").value) || 0;
+      const mortgageRate = (parsePercentage(document.getElementById("mortgageRate").value) || 0) / 100 / 12;
+      let mortgagePayment = 0;
+      if (mortgageYears > 0 && mortgageRate > 0 && propertyPrice > 0) {
+        const loanAmount = propertyPrice * (1 - downPaymentPerc);
+        mortgagePayment = calculateLoanPayment(loanAmount, mortgageRate, mortgageYears * 12);
+      }
+      
+      // HELOC calculations
+      const heloc = parseCurrency(document.getElementById("heloc").value);
+      const helocYears = parseFloat(document.getElementById("helocYears").value) || 0;
+      const helocRate = (parsePercentage(document.getElementById("helocRate").value) || 0) / 100 / 12;
+      let helocPayment = 0;
+      if (helocYears > 0 && helocRate > 0 && heloc > 0) {
+        helocPayment = calculateLoanPayment(heloc, helocRate, helocYears * 12);
+      }
+      
+      // Expenses: mortgage + heloc + (yearly tax/insurance converted to monthly) + utility cost.
+      const taxYearly = parseCurrency(document.getElementById("tax").value);
+      const utility = parseCurrency(document.getElementById("utility").value);
+      const insuranceYearly = parseCurrency(document.getElementById("insurance").value);
+      const totalExpenses = mortgagePayment + helocPayment + (taxYearly / 12) + utility + (insuranceYearly / 12);
+      
+      // Profit calculation
+      const profit = totalIncome - totalExpenses;
+      const roundedIncome = Math.round(totalIncome);
+      const roundedExpenses = Math.round(totalExpenses);
+      const roundedProfit = Math.round(profit);
+      
+      // Update sidebar results
+      document.getElementById("sidebarIncome").innerText = "$" + roundedIncome;
+      document.getElementById("sidebarExpenses").innerText = "$" + roundedExpenses;
+      document.getElementById("sidebarProfit").innerText = "$" + roundedProfit;
+      
+      // Update the sidebar result box color based on profit outcome
+      const sidebarResult = document.getElementById("sidebarResult");
+      sidebarResult.classList.remove("profit", "loss", "break-even");
+      if (roundedProfit > 0) {
+        sidebarResult.classList.add("profit");
+      } else if (roundedProfit < 0) {
+        sidebarResult.classList.add("loss");
+      } else {
+        sidebarResult.classList.add("break-even");
+      }
+    }
+    
+    // On form reset, clear dynamic unit rent inputs and update results
+    document.getElementById("calcForm").addEventListener("reset", function(){
+      setTimeout(() => {
+        updateUnitRents();
+        calculateProfit();
+      }, 0);
+    });
+    
+    // Initial calculation on page load
+    calculateProfit();
+  </script>
+</body>
+</html>
