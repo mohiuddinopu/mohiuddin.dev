@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Business Plan: Muslim Community Newsletter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A; /* slate-900 */
+            color: #CBD5E1; /* slate-300 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .flow-node {
+            background-color: #1E293B; /* slate-800 */
+            border: 2px solid #475569; /* slate-600 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: #F1F5F9; /* slate-100 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .flow-node:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3rem;
+            width: 100%;
+            color: #64748B; /* slate-500 */
+        }
+        .flow-arrow::after {
+            content: '↓';
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        @media (min-width: 1024px) {
+            .flow-arrow-horizontal {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 4rem;
+                height: 100%;
+            }
+            .flow-arrow-horizontal::after {
+                content: '→';
+                font-size: 2rem;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Chosen Palette: Deep Slate Dark Mode (Dark slate background with vibrant teal and sky accents for high contrast and a modern feel) -->
+    <!-- Application Structure Plan: A top-down narrative SPA. It starts with the core 'Why' (Mission/Vision), moves to the 'What' (Content Strategy), then the 'How' (Launch Plan & Technology), and finishes with the 'Future' (Growth & Monetization). This storytelling approach is more engaging for a user than a direct 1:1 mapping of the report's sections, guiding them through the business concept logically. -->
+    <!-- Visualization & Content Choices:
+    - Mission/Vision: Goal: Inform -> Unicode Icons & Text. Justification: High-impact, immediate communication of core values. Method: HTML.
+    - Content Strategy: Goal: Compare -> Donut Chart. Justification: Best for showing parts-of-a-whole composition. Library: Chart.js/Canvas.
+    - Launch Plan: Goal: Change/Organize -> Interactive Timeline. Justification: Visualizes temporal progression clearly and allows user interaction. Method: HTML/CSS/Tailwind/JS.
+    - Architecture: Goal: Organize -> Flowchart Diagram. Justification: Simplifies a complex technical workflow into understandable stages. Method: HTML/CSS/Tailwind.
+    - Growth Projection: Goal: Change -> Line Chart. Justification: Standard and effective for showing trends over time. Library: Chart.js/Canvas.
+    - Monetization Plan: Goal: Organize -> Phased Cards. Justification: Breaks down the strategy into clear, digestible stages. Method: HTML/CSS/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-slate-800 sticky top-0 z-50 shadow-lg">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-slate-100">The Digital Ummah Project</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#vision" class="nav-link text-slate-300 hover:text-teal-400 border-b-2 border-transparent hover:border-teal-400">Vision</a>
+                <a href="#plan" class="nav-link text-slate-300 hover:text-teal-400 border-b-2 border-transparent hover:border-teal-400">Plan</a>
+                <a href="#tech" class="nav-link text-slate-300 hover:text-teal-400 border-b-2 border-transparent hover:border-teal-400">Technology</a>
+                <a href="#growth" class="nav-link text-slate-300 hover:text-teal-400 border-b-2 border-transparent hover:border-teal-400">Growth</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="vision" class="text-center py-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-100 mb-4">A Blueprint for Community Connection</h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">This is an interactive exploration of a plan to launch a newsletter business focused on connecting and informing the Muslim community in the USA through curated news, events, and stories.</p>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-slate-800 p-8 rounded-lg shadow-xl">
+                    <span class="text-5xl">🤝</span>
+                    <h2 class="text-2xl font-bold text-teal-400 mt-4 mb-2">Our Mission</h2>
+                    <p class="text-slate-300">To connect and inform the American Muslim community by providing a weekly curated newsletter of relevant news, events, and stories from their local areas and across the nation.</p>
+                </div>
+                <div class="bg-slate-800 p-8 rounded-lg shadow-xl">
+                    <span class="text-5xl">🌟</span>
+                    <h2 class="text-2xl font-bold text-sky-400 mt-4 mb-2">Our Vision</h2>
+                    <p class="text-slate-300">To become the go-to source of information for Muslims in the USA, fostering a sense of community and shared identity.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 border-slate-700">
+
+        <section id="plan" class="py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-100">The Strategic Plan</h2>
+                <p class="mt-2 text-lg text-slate-400">From content to launch, here's the step-by-step approach.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                <div class="lg:col-span-2 bg-slate-800 p-6 rounded-lg shadow-xl">
+                    <h3 class="text-2xl font-bold text-center text-teal-400 mb-4">Curated Content Strategy</h3>
+                    <p class="text-center text-slate-400 mb-6">Each newsletter is designed to be a valuable digest, balancing national news with personalized local content. This chart shows the planned allocation for each section.</p>
+                    <div class="chart-container">
+                        <canvas id="contentChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-3 bg-slate-800 p-6 rounded-lg shadow-xl">
+                    <h3 class="text-2xl font-bold text-center text-sky-400 mb-6">Interactive Launch Roadmap</h3>
+                    <p class="text-center text-slate-400 mb-8">The launch is structured in three distinct phases over six months. Click on a phase to see the key actions involved.</p>
+                    <div>
+                        <div id="timeline-nav" class="flex justify-center border-b-2 border-slate-700 mb-6">
+                            <button data-phase="1" class="timeline-btn flex-1 py-3 px-4 font-semibold text-sky-400 border-b-4 border-sky-400">Phase 1: Foundation</button>
+                            <button data-phase="2" class="timeline-btn flex-1 py-3 px-4 font-semibold text-slate-400 border-b-4 border-transparent">Phase 2: Tech Dev</button>
+                            <button data-phase="3" class="timeline-btn flex-1 py-3 px-4 font-semibold text-slate-400 border-b-4 border-transparent">Phase 3: Launch</button>
+                        </div>
+                        <div id="timeline-content" class="p-4 min-h-[200px]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 border-slate-700">
+
+        <section id="tech" class="py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-100">The Technology Backbone</h2>
+                <p class="mt-2 text-lg text-slate-400">A scalable, cost-effective, and fully serverless architecture powers the entire operation.</p>
+            </div>
+            <div class="bg-slate-800 p-8 rounded-lg shadow-xl">
+                <div class="lg:flex lg:items-center lg:justify-center lg:space-x-8">
+                    <div class="text-center lg:text-left">
+                        <h3 class="text-2xl font-bold text-teal-400 mb-2">Data Ingestion</h3>
+                        <p class="text-slate-400 mb-6 lg:mb-0">An automated daily process scrapes and stores relevant news and events.</p>
+                    </div>
+                    <div class="flow-node">EventBridge Scheduler</div>
+                    <div class="flow-arrow lg:hidden"></div><div class="hidden lg:block flow-arrow-horizontal"></div>
+                    <div class="flow-node">AI-Powered Lambda Scraper</div>
+                    <div class="flow-arrow lg:hidden"></div><div class="hidden lg:block flow-arrow-horizontal"></div>
+                    <div class="flow-node">DynamoDB Database</div>
+                </div>
+                <div class="flex justify-center my-4">
+                    <div class="flow-arrow"></div>
+                </div>
+                <div class="lg:flex lg:items-center lg:justify-center lg:space-x-8">
+                    <div class="flow-node flex-1">Website on Cloudflare Pages</div>
+                    <div class="hidden lg:block flow-arrow-horizontal"></div>
+                    <div class="flow-arrow lg:hidden"></div>
+                    <div class="flow-node flex-1">Email Marketing Service</div>
+                    <div class="text-center lg:text-right mt-6 lg:mt-0">
+                        <h3 class="text-2xl font-bold text-sky-400 mb-2">Data Delivery</h3>
+                        <p class="text-slate-400">Users interact with the data via the website and receive personalized weekly newsletters.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 border-slate-700">
+
+        <section id="growth" class="py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-100">Growth & Monetization</h2>
+                <p class="mt-2 text-lg text-slate-400">A sustainable model for long-term community impact and business viability.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                <div class="lg:col-span-3 bg-slate-800 p-6 rounded-lg shadow-xl">
+                    <h3 class="text-2xl font-bold text-center text-teal-400 mb-4">Subscriber Growth Projections</h3>
+                    <p class="text-center text-slate-400 mb-6">Through strategic partnerships and community engagement, we project steady growth, reaching a significant audience within two years.</p>
+                    <div class="chart-container h-96">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-slate-800 p-6 rounded-lg shadow-xl">
+                    <h3 class="text-2xl font-bold text-center text-sky-400 mb-6">Phased Monetization</h3>
+                    <p class="text-center text-slate-400 mb-8">Revenue streams will be introduced gradually, always prioritizing value for the community.</p>
+                    <ul class="space-y-4">
+                        <li class="p-4 border-l-4 border-teal-500 bg-slate-700 rounded-r-lg">
+                            <h4 class="font-bold text-lg text-teal-400">Phase 1: Early Stage</h4>
+                            <p class="text-slate-300">Donations & Affiliate Marketing</p>
+                        </li>
+                        <li class="p-4 border-l-4 border-sky-500 bg-slate-700 rounded-r-lg">
+                            <h4 class="font-bold text-lg text-sky-400">Phase 2: Growth Stage</h4>
+                            <p class="text-slate-300">Sponsorships & Job Board</p>
+                        </li>
+                        <li class="p-4 border-l-4 border-slate-500 bg-slate-700 rounded-r-lg">
+                            <h4 class="font-bold text-lg text-slate-200">Phase 3: Mature Stage</h4>
+                            <p class="text-slate-300">Premium Content & Digital Products</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 mt-16 py-8 border-t border-slate-800">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 The Digital Ummah Project. All rights reserved.</p>
+            <p class="text-sm text-slate-500 mt-2">This interactive plan was generated to visualize a business strategy. All data is illustrative.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+
+            const colors = {
+                teal: '#2DD4BF',
+                sky: '#38BDF8',
+                slate: '#94A3B8',
+                amber: '#FBBF24',
+                rose: '#F472B6',
+                slate100: '#F1F5F9',
+                slate300: '#CBD5E1',
+                slate700: '#334155',
+                slate800: '#1E293B',
+            };
+
+            const contentCtx = document.getElementById('contentChart').getContext('2d');
+            new Chart(contentCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Local Focus', 'Top Stories', 'Community Spotlight', 'Islamic Reminder', 'Upcoming Events'],
+                    datasets: [{
+                        data: [35, 25, 15, 15, 10],
+                        backgroundColor: [colors.teal, colors.sky, colors.amber, colors.slate, colors.rose],
+                        borderColor: colors.slate800,
+                        borderWidth: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: colors.slate300,
+                                font: { size: 14 }
+                            }
+                        },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    }
+                }
+            });
+
+            const growthCtx = document.getElementById('growthChart').getContext('2d');
+            new Chart(growthCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Start', '6 mo', '12 mo', '18 mo', '24 mo'],
+                    datasets: [{
+                        label: 'Projected Subscribers',
+                        data: [0, 2000, 10000, 25000, 50000],
+                        borderColor: colors.teal,
+                        backgroundColor: 'rgba(45, 212, 191, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: colors.teal,
+                        pointRadius: 5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: colors.slate300 },
+                            grid: { color: colors.slate700 }
+                        },
+                        x: {
+                            ticks: { color: colors.slate300 },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    }
+                }
+            });
+
+            const timelineData = {
+                '1': {
+                    title: 'Phase 1: Foundation (Months 1-2)',
+                    color: 'sky',
+                    points: [
+                        'Register business and legal structure.',
+                        'Secure domain and create professional branding.',
+                        'Set up a clean landing page with a signup form.',
+                        'Select an email marketing platform.',
+                        'Manually curate initial content to set the standard.'
+                    ]
+                },
+                '2': {
+                    title: 'Phase 2: Technology Development (Months 2-4)',
+                    color: 'teal',
+                    points: [
+                        'Build the AI-powered web scraper using AWS Lambda.',
+                        'Configure DynamoDB to store structured news data.',
+                        'Develop the website backend to display localized news.',
+                        'Define and deploy all infrastructure using Terraform.',
+                        'Set up a CI/CD pipeline with GitHub Actions.'
+                    ]
+                },
+                '3': {
+                    title: 'Phase 3: Launch & Growth (Months 4-6)',
+                    color: 'slate',
+                    points: [
+                        'Conduct a beta launch with a small user group for feedback.',
+                        'Announce the public launch across social media.',
+                        'Collaborate with Islamic centers and community leaders.',
+                        'Run targeted social media marketing campaigns.',
+                        'Implement a referral program to spur growth.'
+                    ]
+                }
+            };
+
+            const timelineNav = document.getElementById('timeline-nav');
+            const timelineContent = document.getElementById('timeline-content');
+            const timelineBtns = document.querySelectorAll('.timeline-btn');
+
+            function updateTimeline(phase) {
+                const data = timelineData[phase];
+                timelineContent.innerHTML = `
+                    <h4 class="text-xl font-bold text-${data.color}-400 mb-4">${data.title}</h4>
+                    <ul class="space-y-2 list-disc list-inside text-slate-300">
+                        ${data.points.map(point => `<li>${point}</li>`).join('')}
+                    </ul>
+                `;
+
+                timelineBtns.forEach(btn => {
+                    const btnPhase = btn.dataset.phase;
+                    const btnColor = timelineData[btnPhase].color;
+                    btn.classList.remove(`text-${btnColor}-400`, `border-${btnColor}-400`);
+                    btn.classList.add('text-slate-400', 'border-transparent');
+
+                    if (btnPhase === phase) {
+                        btn.classList.remove('text-slate-400', 'border-transparent');
+                        btn.classList.add(`text-${data.color}-400`, `border-${data.color}-400`);
+                    }
+                });
+            }
+
+            timelineNav.addEventListener('click', (e) => {
+                if (e.target.matches('.timeline-btn')) {
+                    const phase = e.target.dataset.phase;
+                    updateTimeline(phase);
+                }
+            });
+
+            updateTimeline('1');
+        });
+    </script>
+
+</body>
+</html>
