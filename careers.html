@@ -1,66 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Careers - Nababpur Business Finder</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; color: #333; }
-    header { background: #004d40; color: #fff; padding: 1rem; text-align: center; }
-    main { max-width: 900px; margin: auto; padding: 2rem; }
-    h1, h2 { color: #004d40; }
-    .job { background: #fff; padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    ul { margin: 0; padding-left: 20px; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Careers - Nababpur</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>body { background-color: #0a192f; font-family: sans-serif; }</style>
 </head>
-<body>
-  <header>
-    <h1>Join Our Team</h1>
-  </header>
-  <main>
-    <p>At Nababpur Business Finder, we believe in building tools that empower communities. If you’re passionate about technology, data, and making a real-world impact, we’d love to hear from you.</p>
-    
-    <div class="job">
-      <h2>Data Collector</h2>
-      <p><strong>Type:</strong> Part-Time / Contract</p>
-      <p><strong>Location:</strong> Remote / On-site (Nababpur area)</p>
-      <h3>Responsibilities:</h3>
-      <ul>
-        <li>Visit local businesses to collect accurate product and service details</li>
-        <li>Verify and update existing listings in our database</li>
-        <li>Ensure data accuracy and completeness</li>
-        <li>Collaborate with the content team for quality checks</li>
-      </ul>
-      <h3>Requirements:</h3>
-      <ul>
-        <li>Strong attention to detail</li>
-        <li>Good communication skills in Bengali and English</li>
-        <li>Smartphone with internet access</li>
-        <li>Familiarity with local businesses is a plus</li>
-      </ul>
-    </div>
+<body class="text-gray-200">
+  <!-- Navigation -->
+  <!-- Same nav as above -->
 
-    <div class="job">
-      <h2>Web Developer – Cloud & AI Specialist</h2>
-      <p><strong>Type:</strong> Full-Time</p>
-      <p><strong>Location:</strong> Remote / Hybrid</p>
-      <h3>Responsibilities:</h3>
-      <ul>
-        <li>Develop and maintain scalable web applications</li>
-        <li>Integrate AI-powered search and recommendation features</li>
-        <li>Deploy and manage cloud infrastructure (AWS, Azure, or GCP)</li>
-        <li>Collaborate with the product team to design user-friendly features</li>
-        <li>Ensure security, performance, and reliability of the platform</li>
+  <!-- Content -->
+  <main class="max-w-4xl mx-auto mt-12 p-6 bg-[#112240] rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-[#64ffda] mb-6">Join Our Team</h1>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-[#64ffda]">Data Collector</h2>
+      <ul class="list-disc list-inside text-gray-300 mt-2">
+        <li>Visit local businesses to collect accurate product and service details</li>
+        <li>Verify and update existing listings</li>
+        <li>Smartphone required; local knowledge preferred</li>
       </ul>
-      <h3>Requirements:</h3>
-      <ul>
-        <li>Proficiency in modern web frameworks (React, Vue, or Angular)</li>
-        <li>Experience with cloud services and serverless architectures</li>
-        <li>Familiarity with AI/ML APIs and integration</li>
-        <li>Knowledge of database optimization and API development</li>
-        <li>Problem-solving mindset and ability to work in a fast-paced environment</li>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold text-[#64ffda]">Web Developer – Cloud & AI</h2>
+      <ul class="list-disc list-inside text-gray-300 mt-2">
+        <li>Build scalable web apps with cloud and AI integrations</li>
+        <li>Experience with AWS, serverless, and modern JS frameworks</li>
+        <li>Security, performance, and UX focus required</li>
       </ul>
-    </div>
+    </section>
   </main>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
 </body>
 </html>
