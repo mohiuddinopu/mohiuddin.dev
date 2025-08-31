@@ -1,334 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nababpur Business Finder</title>
-    
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Poppins (a modern alternative to Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* Custom scrollbar for a better dark mode aesthetic */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111827; /* gray-900 */
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4B5563; /* gray-600 */
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6B7280; /* gray-500 */
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0B1120; /* A slightly deeper blue-ish dark */
-        }
-        
-        /* Blinking cursor effect for the typing animation */
-        .typing-cursor {
-            border-right: 2px solid #67e8f9; /* cyan-300 */
-            animation: blink 0.7s steps(1) infinite;
-        }
-
-        @keyframes blink {
-            50% {
-                border-color: transparent;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nababpur Business Finder</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #111827; }
+    ::-webkit-scrollbar-thumb { background: #4B5563; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6B7280; }
+    body { font-family: 'Poppins', sans-serif; background-color: #0B1120; }
+    .typing-cursor { border-right: 2px solid #67e8f9; animation: blink 0.7s steps(1) infinite; }
+    @keyframes blink { 50% { border-color: transparent; } }
+  </style>
 </head>
 <body class="bg-gray-900 text-gray-200 min-h-screen">
 
-    <!-- Navigation Bar -->
-    <nav class="bg-gray-900/70 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex items-center justify-between">
-                <!-- Logo -->
-                <a href="#" class="flex items-center space-x-2">
-                    <svg class="h-8 w-8 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.25m11.25 0H21m-9-7.5h7.5m-7.5 0a.75.75 0 01-.75-.75V3.75c0-.414.336-.75.75-.75h3a.75.75 0 01.75.75v12.75a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75z" />
-                    </svg>
-                    <span class="text-xl font-bold text-white">Nababpur.com</span>
-                </a>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition duration-300">For Business</a>
-                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition duration-300">Login</a>
-                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition duration-300">About Us</a>
-                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition duration-300">Career</a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden pt-4">
-                <a href="#" class="block py-2 text-gray-300 hover:text-cyan-400">For Business</a>
-                <a href="#" class="block py-2 text-gray-300 hover:text-cyan-400">Login</a>
-                <a href="#" class="block py-2 text-gray-300 hover:text-cyan-400">About Us</a>
-                <a href="#" class="block py-2 text-gray-300 hover:text-cyan-400">Career</a>
-            </div>
-        </div>
-    </nav>
-
-
-    <div class="container mx-auto p-4 md:p-8">
-        
-        <!-- Header -->
-        <header class="text-center my-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-cyan-400">Nababpur Business Finder</h1>
-            <!-- Typing Effect Container -->
-            <p class="text-gray-400 mt-4 text-lg">
-                Find anything from <span id="typing-effect" class="font-semibold text-cyan-300 typing-cursor"></span>
-            </p>
-        </header>
-
-        <!-- Search Section -->
-        <main>
-            <div class="max-w-2xl mx-auto">
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <input type="text" id="searchInput"
-                           class="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded-lg shadow-sm py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition duration-300"
-                           placeholder="Search for products or business names...">
-                    
-                    <div id="suggestions" class="absolute z-10 w-full bg-gray-800 border border-gray-700 rounded-lg mt-1 shadow-lg hidden max-h-60 overflow-y-auto"></div>
-                </div>
-            </div>
-
-            <section id="results" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></section>
-        </main>
-        
+<!-- Navigation -->
+<nav class="bg-gray-900/70 backdrop-blur-md shadow-lg sticky top-0 z-50">
+  <div class="container mx-auto px-6 py-3 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="nababpur.com.html" class="flex items-center space-x-2">
+      <svg class="h-8 w-8 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.25m11.25 0H21m-9-7.5h7.5m-7.5 0a.75.75 0 01-.75-.75V3.75c0-.414.336-.75.75-.75h3a.75.75 0 01.75.75v12.75a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75z" />
+      </svg>
+      <span class="text-xl font-bold text-white">Nababpur.com</span>
+    </a>
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center space-x-6">
+      <a href="#" class="text-gray-300 hover:text-cyan-400 transition">For Business</a>
+      <a href="login.html" class="text-gray-300 hover:text-cyan-400 transition">Login</a>
+      <a href="about.html" class="text-gray-300 hover:text-cyan-400 transition">About Us</a>
+      <a href="careers.html" class="text-gray-300 hover:text-cyan-400 transition">Careers</a>
     </div>
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden">
+      <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden pt-4 px-6">
+    <a href="#" class="block py-2 text-gray-300 hover:text-cyan-400">For Business</a>
+    <a href="login.html" class="block py-2 text-gray-300 hover:text-cyan-400">Login</a>
+    <a href="about.html" class="block py-2 text-gray-300 hover:text-cyan-400">About Us</a>
+    <a href="careers.html" class="block py-2 text-gray-300 hover:text-cyan-400">Careers</a>
+  </div>
+</nav>
 
-    <script>
-        // --- SAMPLE DATA ---
-        const businesses = [
-             {
-                id: 'haji-electronics',
-                name: 'Haji Electronics',
-                address: '27 Nawabpur Rd, Dhaka 1100',
-                contact: '0171-XXX-XXXX',
-                type: 'Electronics Store',
-                products: ['LED bulbs', 'switches', 'wiring cables', 'fans', 'circuit breakers']
-            },
-            {
-                id: 'bismillah-machinery',
-                name: 'Bismillah Machinery',
-                address: '145 Nawabpur Rd, Dhaka 1100',
-                contact: '0182-XXX-XXXX',
-                type: 'Machinery & Equipment',
-                products: ['water pump', 'power tools', 'generators', 'drill machine', 'welding machine']
-            },
-            {
-                id: 'national-electric',
-                name: 'National Electric Co.',
-                address: '155 Nawabpur Rd, Dhaka 1100',
-                contact: 'N/A',
-                type: 'Electrical Supply Store',
-                products: ['industrial wiring', 'sockets', 'switches', 'conduit pipes', 'LED bulbs']
-            },
-            {
-                id: 'golden-tools-hardware',
-                name: 'Golden Tools & Hardware',
-                address: '161 Nawabpur Rd, Dhaka 1100',
-                contact: '0191-XXX-XXXX',
-                type: 'Hardware Store',
-                products: ['hand tools', 'screws', 'nuts and bolts', 'locks', 'power tools', 'drill machine']
-            },
-            {
-                id: 'super-star-showroom',
-                name: 'Super Star Group Showroom',
-                address: '37 Nawabpur Rd, Dhaka 1100',
-                contact: '0167-XXX-XXXX',
-                type: 'Lighting & Fan Store',
-                products: ['LED bulbs', 'tube lights', 'ceiling fans', 'exhaust fans', 'fancy lights']
-            },
-            {
-                id: 'national-pump-machinery',
-                name: 'National Pump & Machinery',
-                address: '172 Nawabpur Rd, Dhaka 1100',
-                contact: '0155-XXX-XXXX',
-                type: 'Pump Supplier',
-                products: ['submersible pump', 'water pump', 'pressure washer', 'industrial pumps']
-            },
-            {
-                id: 'unique-paint-hardware',
-                name: 'Unique Paint & Hardware',
-                address: '182 Nawabpur Rd, Dhaka 1100',
-                contact: 'N/A',
-                type: 'Hardware & Paint Store',
-                products: ['paints', 'brushes', 'hand tools', 'locks', 'door handles']
-            },
-             {
-                id: 'yasin-machinery',
-                name: 'Yasin Machinery',
-                address: '148 Nawabpur Rd, Dhaka 1100',
-                contact: '0173-XXX-XXXX',
-                type: 'Industrial Machinery',
-                products: ['lathe machine', 'welding machine', 'air compressor', 'power tools']
-            }
-        ];
+<!-- Header -->
+<header class="text-center my-12">
+  <h1 class="text-4xl md:text-5xl font-bold text-cyan-400">Nababpur Business Finder</h1>
+  <p class="text-gray-400 mt-4 text-lg">
+    Find anything from <span id="typing-effect" class="font-semibold text-cyan-300 typing-cursor"></span>
+  </p>
+</header>
 
-        // --- DOM ELEMENT REFERENCES ---
-        const searchInput = document.getElementById('searchInput');
-        const resultsContainer = document.getElementById('results');
-        const suggestionsContainer = document.getElementById('suggestions');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+<!-- Search Section -->
+<main class="container mx-auto p-4 md:p-8">
+  <div class="max-w-2xl mx-auto relative">
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <input type="text" id="searchInput" class="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded-lg shadow-sm py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition" placeholder="Search for products or business names...">
+    <div id="suggestions" class="absolute z-10 w-full bg-gray-800 border border-gray-700 rounded-lg mt-1 shadow-lg hidden max-h-60 overflow-y-auto"></div>
+  </div>
+  <section id="results" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></section>
+</main>
 
-        // --- TYPING EFFECT ---
-        const typingElement = document.getElementById('typing-effect');
-        const wordsToType = ["LED bulbs", "water pumps", "power tools", "wiring cables", "ceiling fans", "hand tools"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+<script>
+const businesses = [
+  { id: 'haji-electronics', name: 'Haji Electronics', address: '27 Nawabpur Rd, Dhaka 1100', contact: '0171-XXX-XXXX', type: 'Electronics Store', products: ['LED bulbs','switches','wiring cables','fans','circuit breakers'] },
+  { id: 'bismillah-machinery', name: 'Bismillah Machinery', address: '145 Nawabpur Rd, Dhaka 1100', contact: '0182-XXX-XXXX', type: 'Machinery & Equipment', products: ['water pump','power tools','generators','drill machine','welding machine'] }
+  // ... keep your other entries
+];
 
-        function type() {
-            const currentWord = wordsToType[wordIndex];
-            if (isDeleting) {
-                // Deleting text
-                typingElement.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-                if (charIndex === 0) {
-                    isDeleting = false;
-                    wordIndex = (wordIndex + 1) % wordsToType.length;
-                }
-            } else {
-                // Typing text
-                typingElement.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-                if (charIndex === currentWord.length) {
-                    isDeleting = true;
-                    setTimeout(type, 1500); // Pause before deleting
-                    return;
-                }
-            }
-            const typingSpeed = isDeleting ? 50 : 150;
-            setTimeout(type, typingSpeed);
-        }
+const searchInput = document.getElementById('searchInput');
+const resultsContainer = document.getElementById('results');
+const suggestionsContainer = document.getElementById('suggestions');
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
 
-        // --- PREPARE DATA FOR AUTOCOMPLETE ---
-        const allProducts = businesses.flatMap(b => b.products);
-        const allBusinessNames = businesses.map(b => b.name);
-        const searchableItems = [...new Set([...allProducts, ...allBusinessNames])].sort();
+const typingElement = document.getElementById('typing-effect');
+const wordsToType = ["LED bulbs","water pumps","power tools","wiring cables","ceiling fans","hand tools"];
+let wordIndex = 0, charIndex = 0, isDeleting = false;
 
-        // --- EVENT LISTENERS ---
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.toLowerCase();
-            displayResults(query);
-            showSuggestions(query);
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!searchInput.contains(event.target)) {
-                suggestionsContainer.classList.add('hidden');
-            }
-        });
-
-        // --- CORE FUNCTIONS (Search and Display) ---
-
-        function showSuggestions(query) {
-            if (!query) {
-                suggestionsContainer.classList.add('hidden');
-                return;
-            }
-            const filteredSuggestions = searchableItems.filter(item =>
-                item.toLowerCase().includes(query)
-            ).slice(0, 10);
-
-            if (filteredSuggestions.length === 0) {
-                suggestionsContainer.classList.add('hidden');
-                return;
-            }
-            
-            suggestionsContainer.innerHTML = '';
-            filteredSuggestions.forEach(item => {
-                const div = document.createElement('div');
-                div.textContent = item;
-                div.className = 'p-3 hover:bg-gray-700 cursor-pointer text-gray-300';
-                div.addEventListener('click', () => {
-                    searchInput.value = item;
-                    suggestionsContainer.classList.add('hidden');
-                    displayResults(item.toLowerCase());
-                });
-                suggestionsContainer.appendChild(div);
-            });
-            suggestionsContainer.classList.remove('hidden');
-        }
-
-        function displayResults(query) {
-            resultsContainer.innerHTML = ''; 
-
-            if (!query) {
-                resultsContainer.innerHTML = `<div class="col-span-full text-center text-gray-500"><p>Start by searching for a product or business name.</p></div>`;
-                return;
-            }
-
-            const filteredBusinesses = businesses.filter(business => {
-                const nameMatch = business.name.toLowerCase().includes(query);
-                const productMatch = business.products.some(product => product.toLowerCase().includes(query));
-                return nameMatch || productMatch;
-            });
-
-            if (filteredBusinesses.length === 0) {
-                resultsContainer.innerHTML = `<div class="col-span-full text-center text-gray-500"><p>No businesses found matching "${searchInput.value}".</p></div>`;
-                return;
-            }
-
-            filteredBusinesses.forEach(business => {
-                const card = `
-                    <div class="bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-lg p-6 border border-gray-700 transform hover:scale-105 hover:border-cyan-400 transition-all duration-300">
-                        <h2 class="text-xl font-bold text-cyan-400">${business.name}</h2>
-                        <p class="text-sm text-gray-400 mb-4">${business.type}</p>
-                        <div class="space-y-2 text-gray-300">
-                            <p><strong>Address:</strong> ${business.address}</p>
-                            <p><strong>Contact:</strong> ${business.contact}</p>
-                        </div>
-                        <div class="mt-4">
-                            <h4 class="font-semibold text-gray-400">Known For:</h4>
-                            <div class="flex flex-wrap gap-2 mt-2">
-                                ${business.products.map(product => `<span class="bg-gray-700 text-cyan-200 text-xs font-medium px-2.5 py-1 rounded-full">${product}</span>`).join('')}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                resultsContainer.innerHTML += card;
-            });
-        }
-        
-        // --- INITIAL RENDER ---
-        document.addEventListener('DOMContentLoaded', () => {
-            displayResults('');
-            type(); // Start the typing animation
-        });
-
-    </script>
-</body>
-</html>
-
-
+function type() {
+  const currentWord = wordsToType[wordIndex];
+  typingElement.textContent = isDeleting
+    ? currentWord.substring(0, charIndex - 1)
+    : currentWord.substring(0, charIndex + 1);
+  charIndex += isDeleting ? -1 : 1;
+  if (!isDeleting && charIndex === currentWord.length) { isDeleting = true; setTimeout(type, 1500); return; }
+  if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % wordsToType.length; }
+  setTimeout(type, isDeleting [A](https://github.com/jorgeemilianom/portfolio/tree/b2e18a66f5855368e1e96bb5b0813c6c8c943706/index.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fY2xpY2tEZXN0aW5hdGlvbiI6Imh0dHBzOlwvXC9naXRodWIuY29tXC9qb3JnZWVtaWxpYW5vbVwvcG9ydGZvbGlvXC90cmVlXC9iMmUxOGE2NmY1ODU1MzY4ZTFlOTZiYjViMDgxM2M2YzhjOTQzNzA2XC9pbmRleC5waHAiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3In0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [B](https://github.com/moeclay/pdw24jam_entry/tree/9606afcd7eba27990562194ec25565c642e33eab/application%2Fviews%2Fdashboard%2Fpersonal_point.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvbW9lY2xheVwvcGR3MjRqYW1fZW50cnlcL3RyZWVcLzk2MDZhZmNkN2ViYTI3OTkwNTYyMTk0ZWMyNTU2NWM2NDJlMzNlYWJcL2FwcGxpY2F0aW9uJTJGdmlld3MlMkZkYXNoYm9hcmQlMkZwZXJzb25hbF9wb2ludC5waHAiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoancifQ%3D%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [C](https://github.com/ramsweb/Accept-new/tree/5684fccfda717b0388ec2134a489eb20719b6915/web-development.php?copilot_analytics_metadata=eyJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NvbnZlcnNhdGlvbklkIjoiZEtUaFg0bnVIRHFSYWRxUlNwaGp3IiwiZXZlbnRJbmZvX2NsaWNrU291cmNlIjoiY2l0YXRpb25MaW5rIiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvcmFtc3dlYlwvQWNjZXB0LW5ld1wvdHJlZVwvNTY4NGZjY2ZkYTcxN2IwMzg4ZWMyMTM0YTQ4OWViMjA3MTliNjkxNVwvd2ViLWRldmVsb3BtZW50LnBocCJ9&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [D](https://github.com/gabrielMarinhocd/sistema_hotelaria_pim_unip/tree/ee2761c1b9444c7fb11464e1eb08c998113fd780/resources%2Fviews%2Fhuniphotel%2Freservas.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvZ2FicmllbE1hcmluaG9jZFwvc2lzdGVtYV9ob3RlbGFyaWFfcGltX3VuaXBcL3RyZWVcL2VlMjc2MWMxYjk0NDRjN2ZiMTE0NjRlMWViMDhjOTk4MTEzZmQ3ODBcL3Jlc291cmNlcyUyRnZpZXdzJTJGaHVuaXBob3RlbCUyRnJlc2VydmFzLmJsYWRlLnBocCJ9&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [E](https://github.com/pinge-app/pinge/tree/df50d13734c0e2e2b7f6a2e0e066b361de8361a0/resources%2Fviews%2Fapp.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fY2xpY2tEZXN0aW5hdGlvbiI6Imh0dHBzOlwvXC9naXRodWIuY29tXC9waW5nZS1hcHBcL3BpbmdlXC90cmVlXC9kZjUwZDEzNzM0YzBlMmUyYjdmNmEyZTBlMDY2YjM2MWRlODM2MWEwXC9yZXNvdXJjZXMlMkZ2aWV3cyUyRmFwcC5ibGFkZS5waHAiLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NvbnZlcnNhdGlvbklkIjoiZEtUaFg0bnVIRHFSYWRxUlNwaGp3In0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [F](https://github.com/samukherjee/GalleryApp/tree/ec7648be9038b7cd95a7bc1d8671df818015ca14/resources%2Fviews%2Fcomponents%2Fnavbar.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fY2xpY2tEZXN0aW5hdGlvbiI6Imh0dHBzOlwvXC9naXRodWIuY29tXC9zYW11a2hlcmplZVwvR2FsbGVyeUFwcFwvdHJlZVwvZWM3NjQ4YmU5MDM4YjdjZDk1YTdiYzFkODY3MWRmODE4MDE1Y2ExNFwvcmVzb3VyY2VzJTJGdmlld3MlMkZjb21wb25lbnRzJTJGbmF2YmFyLmJsYWRlLnBocCIsImV2ZW50SW5mb19jbGlja1NvdXJjZSI6ImNpdGF0aW9uTGluayIsImV2ZW50SW5mb19tZXNzYWdlSWQiOiJMczh5WGluNGd0UkdQZU5USjJMUTcifQ%3D%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [G](https://github.com/almir-pehlivanovic/dropzone-demo/tree/09808f023b5f6ffb666fe4606f36b586a2b91e3f/resources%2Fviews%2Fdropdown-demo%2Fcreate.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NvbnZlcnNhdGlvbklkIjoiZEtUaFg0bnVIRHFSYWRxUlNwaGp3IiwiZXZlbnRJbmZvX2NsaWNrU291cmNlIjoiY2l0YXRpb25MaW5rIiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvYWxtaXItcGVobGl2YW5vdmljXC9kcm9wem9uZS1kZW1vXC90cmVlXC8wOTgwOGYwMjNiNWY2ZmZiNjY2ZmU0NjA2ZjM2YjU4NmEyYjkxZTNmXC9yZXNvdXJjZXMlMkZ2aWV3cyUyRmRyb3Bkb3duLWRlbW8lMkZjcmVhdGUuYmxhZGUucGhwIn0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [H](https://github.com/Fahning/mvpbex/tree/c1b21a66dbdcfab3698b7e73a4507c7c1e19e50d/resources%2Fviews%2Fvendor%2Fwireui%2Fcomponents%2Ficons%2Foutline%2Fmenu-alt-3.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrU291cmNlIjoiY2l0YXRpb25MaW5rIiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvRmFobmluZ1wvbXZwYmV4XC90cmVlXC9jMWIyMWE2NmRiZGNmYWIzNjk4YjdlNzNhNDUwN2M3YzFlMTllNTBkXC9yZXNvdXJjZXMlMkZ2aWV3cyUyRnZlbmRvciUyRndpcmV1aSUyRmNvbXBvbmVudHMlMkZpY29ucyUyRm91dGxpbmUlMkZtZW51LWFsdC0zLmJsYWRlLnBocCIsImV2ZW50SW5mb19jb252ZXJzYXRpb25JZCI6ImRLVGhYNG51SERxUmFkcVJTcGhqdyJ9&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [I](https://github.com/Haryor-Mhie-max/Porfolio/tree/89a522b212c18a55c5376328c63768735a039a01/components%2FHamburgerIcon.js?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvSGFyeW9yLU1oaWUtbWF4XC9Qb3Jmb2xpb1wvdHJlZVwvODlhNTIyYjIxMmMxOGE1NWM1Mzc2MzI4YzYzNzY4NzM1YTAzOWEwMVwvY29tcG9uZW50cyUyRkhhbWJ1cmdlckljb24uanMiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoancifQ%3D%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JV](https://github.com/Viniciusdth/Viniciusdth.github.io/tree/d09b0402fa7e422909111859e25bcfaa1805a50d/src%2Fpages%2Fficha%2Fattributes%2Fattributes.js?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tEZXN0aW5hdGlvbiI6Imh0dHBzOlwvXC9naXRodWIuY29tXC9WaW5pY2l1c2R0aFwvVmluaWNpdXNkdGguZ2l0aHViLmlvXC90cmVlXC9kMDliMDQwMmZhN2U0MjI5MDkxMTE4NTllMjViY2ZhYTE4MDVhNTBkXC9zcmMlMkZwYWdlcyUyRmZpY2hhJTJGYXR0cmlidXRlcyUyRmF0dHJpYnV0ZXMuanMiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3In0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JM](https://github.com/reshap0318/kepegawaian/tree/7499ce9bc861fd8294cdb037fc732fadafe5d835/resources%2Fviews%2Flivewire%2Fbackend%2Fpermission%2Findex.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvcmVzaGFwMDMxOFwva2VwZWdhd2FpYW5cL3RyZWVcLzc0OTljZTliYzg2MWZkODI5NGNkYjAzN2ZjNzMyZmFkYWZlNWQ4MzVcL3Jlc291cmNlcyUyRnZpZXdzJTJGbGl2ZXdpcmUlMkZiYWNrZW5kJTJGcGVybWlzc2lvbiUyRmluZGV4LmJsYWRlLnBocCIsImV2ZW50SW5mb19jb252ZXJzYXRpb25JZCI6ImRLVGhYNG51SERxUmFkcVJTcGhqdyJ9&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JN](https://github.com/Indemnity83/paperless/tree/670cfedd531c534745e668311d4252abaf0ce44a/resources%2Fviews%2Ffiles%2Findex.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NvbnZlcnNhdGlvbklkIjoiZEtUaFg0bnVIRHFSYWRxUlNwaGp3IiwiZXZlbnRJbmZvX2NsaWNrU291cmNlIjoiY2l0YXRpb25MaW5rIiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvSW5kZW1uaXR5ODNcL3BhcGVybGVzc1wvdHJlZVwvNjcwY2ZlZGQ1MzFjNTM0NzQ1ZTY2ODMxMWQ0MjUyYWJhZjBjZTQ0YVwvcmVzb3VyY2VzJTJGdmlld3MlMkZmaWxlcyUyRmluZGV4LmJsYWRlLnBocCJ9&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JO](https://github.com/ChristopherBiscardi/christopherbiscardi.github.com/tree/242a08cb17d139ec5ca9be994a772dd134cc2f82/packages%2Fwww%2Fsrc%2Fpages%2Fserverless.js?copilot_analytics_metadata=eyJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrU291cmNlIjoiY2l0YXRpb25MaW5rIiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvQ2hyaXN0b3BoZXJCaXNjYXJkaVwvY2hyaXN0b3BoZXJiaXNjYXJkaS5naXRodWIuY29tXC90cmVlXC8yNDJhMDhjYjE3ZDEzOWVjNWNhOWJlOTk0YTc3MmRkMTM0Y2MyZjgyXC9wYWNrYWdlcyUyRnd3dyUyRnNyYyUyRnBhZ2VzJTJGc2VydmVybGVzcy5qcyJ9&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JP](https://github.com/muhammedsaidckr/ogrenci-basari-analizi/tree/a0e893f6c6001d308cba539a949a8e583d17ae58/resources%2Fviews%2Flivewire%2Fstudents.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fY2xpY2tEZXN0aW5hdGlvbiI6Imh0dHBzOlwvXC9naXRodWIuY29tXC9tdWhhbW1lZHNhaWRja3JcL29ncmVuY2ktYmFzYXJpLWFuYWxpemlcL3RyZWVcL2EwZTg5M2Y2YzYwMDFkMzA4Y2JhNTM5YTk0OWE4ZTU4M2QxN2FlNThcL3Jlc291cmNlcyUyRnZpZXdzJTJGbGl2ZXdpcmUlMkZzdHVkZW50cy5ibGFkZS5waHAiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3In0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JQ](https://github.com/hazzel24/1461505211_KEGIATAN3_PAGI/tree/aa3c5d0a1d2c7df8dcf970acbba35669d173a8a8/storage%2Fframework%2Fviews%2Faa94526c400e05ec8b83109c2dc19e896fd730a2.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fY2xpY2tEZXN0aW5hdGlvbiI6Imh0dHBzOlwvXC9naXRodWIuY29tXC9oYXp6ZWwyNFwvMTQ2MTUwNTIxMV9LRUdJQVRBTjNfUEFHSVwvdHJlZVwvYWEzYzVkMGExZDJjN2RmOGRjZjk3MGFjYmJhMzU2NjlkMTczYThhOFwvc3RvcmFnZSUyRmZyYW1ld29yayUyRnZpZXdzJTJGYWE5NDUyNmM0MDBlMDVlYzhiODMxMDljMmRjMTllODk2ZmQ3MzBhMi5waHAiLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3In0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JR](https://github.com/phamhyta/codekit-first-website/tree/c69e279828e622efbae1f2615992e25e704d7f24/resources%2Fviews%2Flayout%2Fheader.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrU291cmNlIjoiY2l0YXRpb25MaW5rIiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvcGhhbWh5dGFcL2NvZGVraXQtZmlyc3Qtd2Vic2l0ZVwvdHJlZVwvYzY5ZTI3OTgyOGU2MjJlZmJhZTFmMjYxNTk5MmUyNWU3MDRkN2YyNFwvcmVzb3VyY2VzJTJGdmlld3MlMkZsYXlvdXQlMkZoZWFkZXIuYmxhZGUucGhwIn0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JS](https://github.com/sergioraldana/incorporaciones/tree/ed5d5d25ce3ecf9d9e242eaba0c785eda96fdcdc/resources%2Fviews%2Flayouts%2Festudiante.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvc2VyZ2lvcmFsZGFuYVwvaW5jb3Jwb3JhY2lvbmVzXC90cmVlXC9lZDVkNWQyNWNlM2VjZjlkOWUyNDJlYWJhMGM3ODVlZGE5NmZkY2RjXC9yZXNvdXJjZXMlMkZ2aWV3cyUyRmxheW91dHMlMkZlc3R1ZGlhbnRlLmJsYWRlLnBocCJ9&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1) [JT](https://github.com/uusa35/almasar/tree/77e6ac3ab9009fd50362b28e25944a889c5abd05/resources%2Fviews%2Fbackend%2Fpartials%2Fnav.blade.php?copilot_analytics_metadata=eyJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiJkS1RoWDRudUhEcVJhZHFSU3BoanciLCJldmVudEluZm9fbWVzc2FnZUlkIjoiTHM4eVhpbjRndFJHUGVOVEoyTFE3IiwiZXZlbnRJbmZvX2NsaWNrU291cmNlIjoiY2l0YXRpb25MaW5rIiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvdXVzYTM1XC9hbG1hc2FyXC90cmVlXC83N2U2YWMzYWI5MDA5ZmQ1MDM2MmIyOGUyNTk0NGE4ODljNWFiZDA1XC9yZXNvdXJjZXMlMkZ2aWV3cyUyRmJhY2tlbmQlMkZwYXJ0aWFscyUyRm5hdi5ibGFkZS5waHAifQ%3D%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1)
