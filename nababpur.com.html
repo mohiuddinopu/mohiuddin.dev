@@ -106,3 +106,40 @@ function type() {
 type();
 
 mobileMenuButton.addEventListener('click', () =>
+
+<!-- CONTINUED FROM PREVIOUS SCRIPT TAG -->
+mobileMenuButton.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+});
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  const matches = businesses.filter(b =>
+    b.name.toLowerCase().includes(query) ||
+    b.products.some(p => p.toLowerCase().includes(query))
+  );
+
+  // Suggestions dropdown
+  if (query.length > 0) {
+    suggestionsContainer.innerHTML = matches.map(b => `<div class="px-4 py-2 hover:bg-[#233554] cursor-pointer">${b.name}</div>`).join('');
+    suggestionsContainer.classList.remove('hidden');
+  } else {
+    suggestionsContainer.classList.add('hidden');
+  }
+
+  // Results section
+  resultsContainer.innerHTML = matches.map(b => `
+    <div class="bg-[#112240] border border-[#233554] rounded-lg p-4 shadow-md">
+      <h3 class="text-lg font-semibold text-[#64ffda]">${b.name}</h3>
+      <p class="text-sm text-gray-400">${b.type}</p>
+      <p class="text-sm text-gray-400">${b.address}</p>
+      <p class="text-sm text-gray-400">Contact: ${b.contact}</p>
+      <p class="text-sm text-gray-300 mt-2">Products: ${b.products.join(', ')}</p>
+    </div>
+  `).join('');
+});
+</script>
+
+</body>
+</html>
+
