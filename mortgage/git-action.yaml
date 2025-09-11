@@ -1,0 +1,130 @@
+name: Deploy Mortgage Tracker to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      username:
+        description: 'Override username (optional)'
+        required: false
+        type: string
+      password:
+        description: 'Override password (optional)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        if [ -f package-lock.json ]; then
+          npm ci
+        else
+          npm install
+        fi
+      
+    - name: Set credentials
+      run: |
+        # Use workflow inputs if provided, otherwise fall back to secrets, then defaults
+        if [ -n "${{ github.event.inputs.username }}" ]; then
+          echo "REACT_APP_USERNAME=${{ github.event.inputs.username }}" >> $GITHUB_ENV
+        elif [ -n "${{ secrets.MORTGAGE_USERNAME }}" ]; then
+          echo "REACT_APP_USERNAME=${{ secrets.MORTGAGE_USERNAME }}" >> $GITHUB_ENV
+        else
+          echo "REACT_APP_USERNAME=admin" >> $GITHUB_ENV
+        fi
+        
+        if [ -n "${{ github.event.inputs.password }}" ]; then
+          echo "REACT_APP_PASSWORD=${{ github.event.inputs.password }}" >> $GITHUB_ENV
+        elif [ -n "${{ secrets.MORTGAGE_PASSWORD }}" ]; then
+          echo "REACT_APP_PASSWORD=${{ secrets.MORTGAGE_PASSWORD }}" >> $GITHUB_ENV
+        else
+          echo "REACT_APP_PASSWORD=admin" >> $GITHUB_ENV
+        fi
+        
+    - name: Build application
+      run: |
+        npm run build
+        
+    - name: Copy YAML file to build
+      run: |
+        if [ -f public/mortgage_tracker.yml ]; then
+          cp public/mortgage_tracker.yml build/
+          echo "✅ Copied mortgage_tracker.yml to build directory"
+        elif [ -f mortgage_tracker.yml ]; then
+          cp mortgage_tracker.yml build/
+          echo "✅ Copied mortgage_tracker.yml from root to build directory"
+        else
+          echo "⚠️ Warning: mortgage_tracker.yml not found. App will use default data."
+        fi
+        
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './build'
+        
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+  # Optional job to validate YAML file
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Validate YAML file
+      run: |
+        if [ -f public/mortgage_tracker.yml ]; then
+          echo "✅ Found mortgage_tracker.yml in public directory"
+          # Basic YAML validation
+          python3 -c "
+          import yaml
+          import sys
+          try:
+              with open('public/mortgage_tracker.yml', 'r') as f:
+                  data = yaml.safe_load(f)
+                  if 'properties' in data:
+                      print(f'✅ YAML is valid with {len(data[\"properties\"])} properties')
+                  else:
+                      print('⚠️ Warning: No properties found in YAML')
+          except Exception as e:
+              print(f'❌ YAML validation failed: {e}')
+              sys.exit(1)
+          "
+        elif [ -f mortgage_tracker.yml ]; then
+          echo "✅ Found mortgage_tracker.yml in root directory"
+        else
+          echo "⚠️ No mortgage_tracker.yml found. App will use default data."
+        fi
