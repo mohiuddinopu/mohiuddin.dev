@@ -1,0 +1,43 @@
+properties:
+  - address: "1080 E Grand St"
+    payments:
+      - amount: 1000
+        scheduled: 25th
+        bank: Whittier
+      - amount: 3500
+        scheduled: 10th
+        bank: Lariba
+
+  - address: "115 E Jersey"
+    payments:
+      - amount: 1900
+        scheduled: 19th
+        bank: PRMG
+      - amount: 7000
+        scheduled: 12th
+        bank: PRMG
+
+  - address: "706 Seaport Dr"
+    payments:
+      - amount: 5900
+        scheduled: 15th
+        bank: Lariba
+
+  - address: "758 Seaport Dr"
+    payments:
+      - amount: 4500
+        scheduled: 10th
+        bank: Guidance
+
+  - address: "113 E Jersey"
+    payments:
+      - amount: 7000
+        scheduled: 12th
+        bank: PRMG
+
+  - address: "105 Albert"
+    primary: true
+    payments:
+      - amount: 4500
+        scheduled: 10th
+        bank: Lariba
